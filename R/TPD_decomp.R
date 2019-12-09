@@ -30,7 +30,7 @@
 #'                custom_time = c("1973-04-30","1973-05-31"),
 #'                window_length = NULL)
 #'  )
-#' #Comparing 1973-05-31 to 1973-04-30
+#' #Comparing change from 1973-04-30 to 1973-05-31
 #'
 #' str(contributions)
 #'#Classes ‘data.table’ and 'data.frame':	176 obs. of  7 variables:
