@@ -50,7 +50,7 @@ contributions <- with(
                window_length = NULL)
  )
 
-#Comparing 1973-05-31 to 1973-04-30 
+#Comparing change from 1973-04-30 to 1973-05-31 
 
 contributions%>%
   select(id,id_total_contrib)%>%
