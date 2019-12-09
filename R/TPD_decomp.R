@@ -199,7 +199,7 @@ TPD_decomp <- function(times,
   dimnames(contribution_matrix)[[1]][which(dimnames(contribution_matrix)[[1]]==current)] <- "current"
 
   #Let the user know this is whats being compared. Can investigate if not what is expected
-  cat("Comparing",as.character(current),"to",as.character(previous),"\n")
+  cat("Comparing change from",as.character(previous),"to",as.character(current),"\n")
 
   #Extract the relevant contribution rows i.e. what periods are being compared
   contrib <- contribution_matrix[c(which(dimnames(contribution_matrix)[[1]]=="previous"),
