@@ -64,4 +64,6 @@ contributions%>%
 # Peaches       1.0043566
 # Strawberries  1.1183779
 ```
+Below compares the raw data to the contribution for the change between 1973 April to May.
+
 ![](img/contribution.png)
