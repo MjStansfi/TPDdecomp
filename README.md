@@ -2,10 +2,10 @@
   Time Product Dummy (TPD) Decomposition
 ====
 
-This package focuses on one function `TPDdecomp`, which decomposes the multilateral TPD index into the contributions of individual commodities. The calculation is based purely off the *Decomposing Multilateral Price Indexes into the Contributions of Individual Commodities* written by *Michael Webster* and *Rory C. Tarnow-Mordi*. It uses the techinque 
+This package focuses on one function `TPDdecomp`, which decomposes the multilateral TPD index into the contributions of individual commodities. The calculation is based purely on the *Decomposing Multilateral Price Indexes into the Contributions of Individual Commodities* paper written by *Michael Webster* and *Rory C. Tarnow-Mordi*. It uses the techinque 
 described under section [2.1.1. Simple TPD Decompositions](https://www.researchgate.net/publication/333875150_Decomposing_Multilateral_Price_Indexes_into_the_Contributions_of_Individual_Commodities).
 
-This package should be coupled with the [FEWS package](https://github.com/MjStansfi/FEWS_package) originally optimized by Donal Lynch. This FEWS package aims to provide a flexible implementation of that method, with some additional splicing options available for users. As well as producing an index, the package provides users with some diagnostic results on the FEWS calculation which may be of use in data exploration, or in monitoring of production systems. In addition the package provides some utilities commonly used by Pricing teams from Statistical Agencies such as converting between indexes and movements.
+This package should be coupled with the [FEWS package](https://github.com/MjStansfi/FEWS_package) originally optimized by Donal Lynch. This FEWS package aims to provide a flexible implementation of that (FEWS) method, with some additional splicing options available for users. As well as producing an index, the package provides users with some diagnostic results on the FEWS calculation which may be of use in data exploration, or in monitoring of production systems. In addition the package provides some utilities commonly used by Pricing teams from Statistical Agencies such as converting between indexes and movements.
 
 Installation
 ============
