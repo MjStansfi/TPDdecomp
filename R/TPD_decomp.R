@@ -46,6 +46,7 @@
 #' @import MatrixModels
 #' @import data.table
 #' @import MASS
+#' @export
 TPD_decomp <- function(times,
                        logprice,
                        id,
