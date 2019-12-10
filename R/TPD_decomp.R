@@ -88,6 +88,8 @@ TPD_decomp <- function(times,
       #Find position of end of window based on custom_time[2]
       end_time <- which(custom_time[2]==unique(prices_df$times))
 
+    }else{
+      end_time <-  1
     }
 
     #return times of interest based off end_time index
@@ -114,7 +116,7 @@ TPD_decomp <- function(times,
   glm_formula <- prices_df$logprice ~ prices_df$times_index + prices_df$id_index
 
   #extract design matrix
-  d <- model.Matrix(glm_formula, sparse =T)
+  d <- MatrixModels::model.Matrix(glm_formula, sparse =T)
 
   #Design matrix size, (number of times) + (number of ids) - (1 date) - (1 commodity) + (1 intercept)
   vcat("The dimensions of the design matrix:", dim(d),'\n')
@@ -154,7 +156,7 @@ TPD_decomp <- function(times,
   wpi <- Matrix::crossprod(dpi,wgt)%*%dpi
   wtaupi <- Matrix::crossprod(dtau,wgt)%*%dpi
   # wpi_solve <- solve(wpi)
-  wpi_solve <- chol2inv(Matrix::chol(wpi))
+  wpi_solve <- Matrix::chol2inv(Matrix::chol(wpi))
   w_common <- wtaupi%*%wpi_solve
 
   #Calculate weights (This multiplied by logprice vector will equal the estimates of parameters for each time)
