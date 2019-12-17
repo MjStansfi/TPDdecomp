@@ -23,7 +23,7 @@ library(TPDdecomp)
 Usage
 =====
 
-The primary function provided by the the package is the `TPD_decomp()` function. Running `?TPD_decomp()` will give all the required information on how using the function. An example of running the `TPD_decomp()` the function is shown below.
+The primary function provided by the the package is the `TPD_decomp()` function. Running `?TPD_decomp()` will give all the required information on how to use the function. An example of running the `TPD_decomp()` the function is shown below.
 
 
 Example
