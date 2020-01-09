@@ -53,7 +53,7 @@ contributions <- with(
 #Comparing change from 1973-04-30 to 1973-05-31 
 
 contributions%>%
-  select(id,id_total_contrib)%>%
+  dplyr::select(id,id_total_contrib)%>%
   arrange(id)%>%
   unique()
   
