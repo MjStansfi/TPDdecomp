@@ -35,10 +35,10 @@ This pacakge includes the Turvey dataset as found in the [Consumer Price Index M
 The decomposition of the Turvey dataset with the contributions between 1973-04-30 and 1973-05-31 can be seen below.
 
 ``` r
+#Make sure you restart your session if just installed
+
 library(TPDdecomp)
 library(dplyr)
-
-load("Turvey.RData")
 
 contributions <- with(
     turvey,
