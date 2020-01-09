@@ -66,4 +66,4 @@ contributions%>%
 ```
 Below compares the raw data to the contribution for the change between 1973 April to May where the verticle line represents May.
 
-![](img/contribution.png =1920x989)
+![](img/contribution.png)
