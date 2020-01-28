@@ -26,8 +26,11 @@ regressions are fit on. Note if window_length is present it assumes custom time 
 in window.}
 }
 \value{
-A dataframe containing the contribution (\code{contrib}) of every price observation in window
-and its total given contribution (\code{id_total_contrib}) to the overall price movement.
+A dataframe containing the numeric contribution (\code{contrib}) of every price observation
+in the window, the product of which will equal the index movement between the two time periods.
+
+\code{p_contrib} is the standardised percentage contribution of the observation, the sum of which will equal 1.
+\code{id_p_contrib} is the standardised percentage contribution of the total id, the sum of which will equal 1.
 }
 \description{
 Take (mostly) the same inputs as the FEWS function and return the decomposition
