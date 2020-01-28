@@ -134,3 +134,14 @@ vcat <- function(..., sep = " ", bypass = FALSE) {
   }
 }
 
+#Standardised percentage contribution
+#logbX = Y 
+#where Y is the standardised contribution,
+#b  is the product of all contributing numbers
+#X is the vector of contributing numbers
+percentage_contrib <- function(contrib){
+  
+  log_base <- prod(contrib)
+  percentage_contrib <- log(contrib,log_base)
+  
+}
