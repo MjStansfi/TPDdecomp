@@ -53,16 +53,27 @@ contributions <- with(
 #Comparing change from 1973-04-30 to 1973-05-31 
 
 contributions%>%
-  dplyr::select(id,id_total_contrib)%>%
-  arrange(id)%>%
-  unique()
+  group_by(id)%>%
+  summarise(contrib = prod(contrib))
   
-# id            id_total_contrib
+# id            contrib
 # Apples        1.0393057
 # Grapes        1.0170914
 # Oranges       0.9969408
 # Peaches       1.0043566
 # Strawberries  1.1183779
+
+contributions%>%
+  group_by(id)%>%
+  summarise(percentage_contrib = sum(p_contrib))
+  
+# id             percentage_contrib
+# Apples         0.22858005
+# Grapes         0.10047883
+# Oranges       -0.01816573
+# Peaches        0.02577431
+# Strawberries   0.66333254
+
 ```
 Below compares the raw data to the contribution for the change between 1973 April to May where the verticle line represents May.
 
