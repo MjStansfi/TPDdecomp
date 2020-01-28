@@ -3,24 +3,24 @@ check_inputs <- function (times = times, logprice = logprice, id = id,
                           window_length = window_length) {
   # Function to confirm that all inputs are correct shape and class
   # Returns all inputs, but some may be modified to the correct data type
-  
+
   if (missing(weight) | is.null(weight)){
     weight <- rep(1, length(times))
     cat("\nNo weighting assigned...All weights set to 1\n")
   }
-  
-  
+
+
   if (anyNA(times) | anyNA(logprice) | anyNA(id) | anyNA(weight)){
     stop("Data contains NA values")
   }
-  
+
   if (any(c(is.infinite(times),
             is.infinite(logprice),
             is.infinite(weight)))){
     stop("Data contains Infinite values")
   }
-  
-  
+
+
   if (length(times) != length(logprice)){
     stop("times and logprice should be vectors of the same length")
   }else if (length(times) != length(id)){
@@ -28,13 +28,13 @@ check_inputs <- function (times = times, logprice = logprice, id = id,
   }else if (length(times) != length(weight)){
     stop("times and weight should be vectors of the same length")
   }
-  
+
   # Times must be in a type which can be ordered - otherwise the windows
   # are meaningless
   if (!(class(times) %in% c("Date", "numeric", "integer"))){
     stop("times must be either a Date or numeric type")
   }
-  
+
   if(length(custom_time)!=0  & length(custom_time)!=2){
     stop("custom_time must be a vector with length of either 0 or 2")
   }
@@ -52,7 +52,7 @@ check_inputs <- function (times = times, logprice = logprice, id = id,
   # %=% is used opposed to := because := is used by data.table package
   # Example usage:
   # c(a, b) %=% functionReturningAListWithTwoValues()
-  
+
   frame <- parent.frame()
   lhs <- as.list(substitute(lhs))
   if (length(lhs) > 1)
@@ -83,39 +83,39 @@ check_inputs <- function (times = times, logprice = logprice, id = id,
 #' @seealso \link{vprint}
 #' @examples \dontrun{
 #' dog <- ("dog")
-#' 
+#'
 #' # With no verbose object in the env, and bypass not true, vcat does nothing
 #' vcat(dog)
-#' 
+#'
 #' # Dummy function with verbose as an argument to show "local" environment interactions
 #' foo <- function(verbose = FALSE){
 #'   vcat(dog)
 #' }
-#' 
+#'
 #' # Create a global variable verbose set to TRUE
 #' verbose <-  T
-#' # vcat and foo() now both print the dog object, even though foo's local verbose variable is false. 
+#' # vcat and foo() now both print the dog object, even though foo's local verbose variable is false.
 #' # i.e. a global verbose veriable will take precedence over a local one
 #' vcat(dog)
 #' foo(verbose = FALSE)
-#' 
+#'
 #' # With the global verbose object set to FALSE, a direct vcat call does nothing, and if the foo function
-#' # is given TRUE for it's local verbose object, then the 'dog' object is still not printed. As above, 
+#' # is given TRUE for it's local verbose object, then the 'dog' object is still not printed. As above,
 #' the global variable takes precedence.
 #' verbose <- F
 #' vcat(dog)
 #' foo()
 #' foo(verbose = TRUE)
-#' 
+#'
 #' # However if there is no global verbose variable, a local variable will cause it to print
 #' rm(verbose)
-#' foo(verbose = TRUE) 
+#' foo(verbose = TRUE)
 #' }
 #'
 #' @export
 
 vcat <- function(..., sep = " ", bypass = FALSE) {
-  
+
   # if the object verbose does exist as a logical (its a function so would always be true if not specific)
   # or bypass is TRUE then cat the input object
   # otherwise check the ... passed arguments for verbose and cat if true
@@ -134,14 +134,20 @@ vcat <- function(..., sep = " ", bypass = FALSE) {
   }
 }
 
-#Standardised percentage contribution
-#logbX = Y 
-#where Y is the standardised contribution,
-#b  is the product of all contributing numbers
-#X is the vector of contributing numbers
+
+
+#' percentage contribution calculation
+#'
+#' A more intuitive way of interpreting contribution, also allows comparison
+#' regardless of resulting total index movement.
+#'
+#' See https://github.com/MjStansfi/TPDdecomp for more information
+#'
+#' @param contrib vector of numeric contributions
+#' @export
 percentage_contrib <- function(contrib){
-  
+
   log_base <- prod(contrib)
   percentage_contrib <- log(contrib,log_base)
-  
+
 }
