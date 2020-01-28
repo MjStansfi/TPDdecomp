@@ -78,3 +78,9 @@ contributions%>%
 Below compares the raw data to the contribution for the change between 1973 April to May where the verticle line represents May.
 
 ![](img/contribution.png)
+
+Using the `percentage_contrib` function we can calculate a percentage contribution, this allows comparison of contributions across different index changes.
+
+The `percentage_contrib` is calculated as the log of the numeric contribution with the base equal to the product of all numeric contributions.
+![](img/percentage_contribution.png)
+
