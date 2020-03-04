@@ -57,7 +57,7 @@ TPD_decomp <- function(times,
                        custom_time = c(),
                        window_length = NULL,
                        verbose = FALSE){
-  # browser()
+  
   #Check input variables are as required
   c(times, logprice, id, weight, custom_time, window_length) %=%
     check_inputs (times = times,
