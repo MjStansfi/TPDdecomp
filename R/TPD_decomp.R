@@ -14,6 +14,8 @@
 #' @param window_length optional. Single number for length of window for the data that
 #' regressions are fit on. Note if window_length is present it assumes custom time is latest two periods
 #' in window.
+#' @param big If vector size becomes too large it will fail to calculate. Setting big to true will calculate
+#' it in an alternate way, however much slower.
 #' @return A dataframe containing the numeric contribution (\code{contrib}) of every price observation
 #' in the window, the product of which will equal the index movement between the two time periods. \code{p_contrib} is
 #' the standardised percentage contribution of the observation, the sum of which will equal 1. \code{id_p_contrib} is
@@ -56,6 +58,7 @@ TPD_decomp <- function(times,
                        weight,
                        custom_time = c(),
                        window_length = NULL,
+                       big = FALSE,
                        verbose = FALSE){
   
   #Check input variables are as required
@@ -165,22 +168,55 @@ TPD_decomp <- function(times,
   
   #Calculate weights (This multiplied by logprice vector will equal the estimates of parameters for each time)
   vcat("Calculating contribution matrix\n")
-  
-  left_solver <- list(wtau,wtaupi)
-  right_solver <- list(Matrix::t(dtau),dpi)
-  
-  weight_calc <- function(inputs){
-    inputs[[1]]-(Matrix::tcrossprod(w_common,inputs[[2]]))
-    
-  }
-  
+
+  #Alternate calc (more verbose)
   # contribution_matrix <-
   #   solve(wtau - (wtaupi %*% Matrix::tcrossprod(solve(wpi),wtaupi)),
   #   ((Matrix::t(dtau) - wtaupi %*% Matrix::tcrossprod(solve(wpi), dpi)) %*% wgt))
-  
+
+  left_solver <- list(wtau,wtaupi)
+  right_solver <- list(Matrix::t(dtau),dpi)
+
+  #Tidy up
+  rm(dtau,
+     dpi,
+     wtau,
+     wtaupi,
+     wpi,
+     wpi_solve,
+     d)
+
+  weight_calc <- function(inputs){
+    inputs[[1]]-(Matrix::tcrossprod(w_common,inputs[[2]]))
+  }
+
+  if(big){
+  #Instead of trying to do the large matrix substraction in one call
+  #Break it down by row so max vector allocation is size of  row.
+
+  cat("Calculating alternate way as big = TRUE\n")
+
+  contribution_matrix <- vector("list",2)
+  contribution_matrix[[1]] <- weight_calc(left_solver)
+
+  temp_right <- (Matrix::tcrossprod(w_common,right_solver[[2]]))
+
+  nrows <- dim(right_solver[[1]])[1]
+  ncols <- dim(right_solver[[1]])[2] #BIG
+  contribution_matrix[[2]] <- sparseMatrix(dims=c(nrows,ncols), i={}, j={})
+  contribution_matrix[[2]] <- as(contribution_matrix[[2]], "dgCMatrix")
+
+  for(i in 1:nrows){
+    cat(i,'/',nrows,'\r')
+    contribution_matrix[[2]][i,] <- right_solver[[1]][i,]-temp_right[i,]
+  }
+
+  }else{
+
   contribution_matrix <- lapply(list(left_solver,right_solver),
                                 weight_calc)
-  
+  }
+
   contribution_matrix <- solve(contribution_matrix[[1]])%*%contribution_matrix[[2]]%*%wgt
   
   
